@@ -108,86 +108,118 @@ function useCountUp(end, start, duration = 1400) {
 }
 
 /* =====================================================================
-   COMPONENT — CategoryTabs
+   COMPONENT — CategoryTabs (FIXED FOR MOBILE)
 ===================================================================== */
 function CategoryTabs({ active, setActive }) {
   const tabRefs = useRef({});
   const wrapRef = useRef(null);
+  const scrollRef = useRef(null);
   const [pill, setPill] = useState({ left: 0, width: 0 });
 
-  useEffect(() => {
+  const updatePill = useCallback(() => {
     const el = tabRefs.current[active];
     const wrap = wrapRef.current;
     if (el && wrap) {
       const elRect = el.getBoundingClientRect();
       const wrapRect = wrap.getBoundingClientRect();
-      setPill({ left: elRect.left - wrapRect.left, width: elRect.width });
+      setPill({
+        left: elRect.left - wrapRect.left,
+        width: elRect.width,
+      });
     }
   }, [active]);
 
   useEffect(() => {
-    const onResize = () => {
-      const el = tabRefs.current[active];
-      const wrap = wrapRef.current;
-      if (el && wrap) {
-        const elRect = el.getBoundingClientRect();
-        const wrapRect = wrap.getBoundingClientRect();
-        setPill({ left: elRect.left - wrapRect.left, width: elRect.width });
-      }
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    // Small delay to let DOM settle after state change
+    const timer = setTimeout(updatePill, 20);
+    return () => clearTimeout(timer);
+  }, [active, updatePill]);
+
+  useEffect(() => {
+    window.addEventListener("resize", updatePill);
+    return () => window.removeEventListener("resize", updatePill);
+  }, [updatePill]);
+
+  // Auto-scroll active tab into view on mobile
+  useEffect(() => {
+    const el = tabRefs.current[active];
+    const container = scrollRef.current;
+    if (el && container) {
+      const containerRect = container.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      const elCenter = elRect.left + elRect.width / 2;
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      const scrollOffset = elCenter - containerCenter;
+
+      container.scrollBy({
+        left: scrollOffset,
+        behavior: "smooth",
+      });
+    }
   }, [active]);
 
   return (
     <div
-      ref={wrapRef}
-      className="sk-tabs relative inline-flex flex-wrap justify-center items-center gap-1 p-1.5 rounded-2xl mx-auto"
-      style={{ background: C.panel, border: `1px solid ${C.border}` }}
-      role="tablist"
-      aria-label="Skill categories"
+      ref={scrollRef}
+      className="sk-tabs-scroll w-full max-w-lg mx-auto"
+      style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}
     >
-      <span
-        className="absolute top-1.5 bottom-1.5 rounded-xl transition-all duration-500"
+      <div
+        ref={wrapRef}
+        className="sk-tabs relative inline-flex items-center gap-1 p-1 sm:p-1.5 rounded-xl sm:rounded-2xl mx-auto min-w-max"
         style={{
-          left: pill.left,
-          width: pill.width,
-          backgroundImage: AURORA,
-          backgroundSize: "300% auto",
-          opacity: 0.92,
-          transitionTimingFunction: "cubic-bezier(0.65,0,0.35,1)",
-          boxShadow: `0 0 22px -4px ${C.violet}88`,
+          background: C.panel,
+          border: `1px solid ${C.border}`,
         }}
-      />
-      {CATEGORIES.map((cat) => (
-        <button
-          key={cat}
-          ref={(el) => (tabRefs.current[cat] = el)}
-          onClick={() => setActive(cat)}
-          role="tab"
-          aria-selected={active === cat}
-          className="sk-tab-btn relative z-10 px-4 sm:px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-colors duration-300"
+        role="tablist"
+        aria-label="Skill categories"
+      >
+        <span
+          className="absolute top-1 bottom-1 sm:top-1.5 sm:bottom-1.5 rounded-lg sm:rounded-xl transition-all duration-500"
           style={{
-            color: active === cat ? "#0A0A14" : C.muted,
-            lineHeight: "1.6",
+            left: pill.left,
+            width: pill.width,
+            backgroundImage: AURORA,
+            backgroundSize: "300% auto",
+            opacity: 0.92,
+            transitionTimingFunction: "cubic-bezier(0.65,0,0.35,1)",
+            boxShadow: `0 0 22px -4px ${C.violet}88`,
           }}
-        >
-          {cat}
-        </button>
-      ))}
+        />
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            ref={(el) => (tabRefs.current[cat] = el)}
+            onClick={() => setActive(cat)}
+            role="tab"
+            aria-selected={active === cat}
+            className="sk-tab-btn relative z-10 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors duration-300"
+            style={{
+              color: active === cat ? "#0A0A14" : C.muted,
+              lineHeight: "1.6",
+              minHeight: "36px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
 
 /* =====================================================================
-   COMPONENT — StatCard
+   COMPONENT — StatCard (FIXED FOR MOBILE)
 ===================================================================== */
 function StatCard({ value, suffix, label, start, delay, Icon, accent }) {
   const count = useCountUp(value, start);
 
   return (
     <div
-      className="sk-anim sk-stat relative text-center px-5 sm:px-6 py-5 sm:py-6 rounded-2xl overflow-hidden"
+      className="sk-anim sk-stat relative text-center px-2.5 sm:px-6 py-4 sm:py-6 rounded-xl sm:rounded-2xl overflow-hidden"
       style={{
         background: C.panel,
         border: `1px solid ${C.border}`,
@@ -197,15 +229,15 @@ function StatCard({ value, suffix, label, start, delay, Icon, accent }) {
       }}
     >
       <Icon
-        className="absolute -right-2 -top-2 opacity-[0.08]"
-        size={64}
+        className="absolute -right-1 -top-1 sm:-right-2 sm:-top-2 opacity-[0.06] sm:opacity-[0.08]"
+        size={48}
         style={{ color: accent }}
         aria-hidden="true"
       />
-      <div className="relative flex items-center justify-center gap-2 mb-2">
-        <Icon size={16} style={{ color: accent }} />
+      <div className="relative flex items-center justify-center gap-1 sm:gap-2 mb-1 sm:mb-2">
+        <Icon size={14} className="hidden sm:block" style={{ color: accent }} />
         <p
-          className="sk-wordmark nb-font-display text-2xl sm:text-3xl md:text-4xl font-extrabold"
+          className="sk-wordmark nb-font-display text-xl sm:text-3xl md:text-4xl font-extrabold"
           style={{ lineHeight: "1.2" }}
         >
           {count}
@@ -213,8 +245,8 @@ function StatCard({ value, suffix, label, start, delay, Icon, accent }) {
         </p>
       </div>
       <p
-        className="text-[11px] sm:text-xs md:text-sm mt-2 tracking-wide"
-        style={{ color: C.muted, lineHeight: "1.7" }}
+        className="text-[10px] sm:text-xs md:text-sm mt-1 sm:mt-2 tracking-wide leading-tight sm:leading-normal"
+        style={{ color: C.muted, lineHeight: "1.5" }}
       >
         {label}
       </p>
@@ -223,7 +255,7 @@ function StatCard({ value, suffix, label, start, delay, Icon, accent }) {
 }
 
 /* =====================================================================
-   COMPONENT — SkillOrb
+   COMPONENT — SkillOrb (FIXED FOR MOBILE)
 ===================================================================== */
 const RING_R = 40;
 const RING_C = 2 * Math.PI * RING_R;
@@ -246,7 +278,7 @@ function SkillOrb({ skill, index, start }) {
     <div
       ref={cardRef}
       tabIndex={0}
-      className="sk-orb-card sk-anim relative rounded-2xl px-4 pt-8 pb-6 flex flex-col items-center text-center group outline-none"
+      className="sk-orb-card sk-anim relative rounded-xl sm:rounded-2xl px-3 pt-6 sm:px-4 sm:pt-8 pb-4 sm:pb-6 flex flex-col items-center text-center group outline-none"
       style={{
         background: C.panel,
         border: `1px solid ${C.border}`,
@@ -265,7 +297,7 @@ function SkillOrb({ skill, index, start }) {
       />
 
       {/* ring + icon */}
-      <div className="relative w-[92px] h-[92px] sm:w-[104px] sm:h-[104px] mb-5">
+      <div className="relative w-[72px] h-[72px] sm:w-[92px] sm:h-[92px] md:w-[104px] md:h-[104px] mb-3 sm:mb-5">
         <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
           <circle
             cx="50"
@@ -294,11 +326,11 @@ function SkillOrb({ skill, index, start }) {
           className="sk-icon-wrap absolute inset-0 flex items-center justify-center rounded-full"
           style={{ color: accent }}
         >
-          <Icon size={30} />
+          <Icon size={22} className="sm:w-[30px] sm:h-[30px]" />
         </div>
 
         <span
-          className="sk-pct-badge nb-font-display absolute -bottom-1 -right-1 text-[11px] font-bold px-1.5 py-0.5 rounded-full"
+          className="sk-pct-badge nb-font-display absolute -bottom-1 -right-1 text-[9px] sm:text-[11px] font-bold px-1 sm:px-1.5 py-0.5 rounded-full"
           style={{
             background: C.bg,
             border: `1px solid ${C.border}`,
@@ -311,13 +343,13 @@ function SkillOrb({ skill, index, start }) {
       </div>
 
       <h4
-        className="text-sm sm:text-[15px] font-semibold mb-3"
-        style={{ color: C.text, lineHeight: "1.65" }}
+        className="text-[11px] sm:text-sm md:text-[15px] font-semibold mb-2 sm:mb-3 leading-tight sm:leading-normal"
+        style={{ color: C.text, lineHeight: "1.5" }}
       >
         {skill.name}
       </h4>
       <span
-        className="text-[10px] sm:text-[11px] uppercase tracking-wider px-2.5 py-1 rounded-full"
+        className="text-[9px] sm:text-[11px] uppercase tracking-wider px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full"
         style={{
           color: C.muted,
           background: "rgba(255,255,255,0.04)",
@@ -332,7 +364,7 @@ function SkillOrb({ skill, index, start }) {
 }
 
 /* =====================================================================
-   COMPONENT — ProficiencyLegend
+   COMPONENT — ProficiencyLegend (FIXED FOR MOBILE)
 ===================================================================== */
 function ProficiencyLegend({ start }) {
   const levels = [
@@ -344,20 +376,20 @@ function ProficiencyLegend({ start }) {
 
   return (
     <div
-      className="sk-anim flex flex-wrap justify-center items-center gap-x-5 sm:gap-x-7 gap-y-3 mb-14 sm:mb-16 px-4"
+      className="sk-anim flex flex-wrap justify-center items-center gap-x-3 sm:gap-x-7 gap-y-2 sm:gap-y-3 mb-10 sm:mb-14 md:mb-16 px-3 sm:px-4"
       style={start ? { animation: "sk-fade-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s both" } : { opacity: 0 }}
     >
       {levels.map((lvl) => (
-        <div key={lvl.label} className="flex items-center gap-2.5">
+        <div key={lvl.label} className="flex items-center gap-1.5 sm:gap-2.5">
           <span
             className="inline-block rounded-full shrink-0"
-            style={{ width: 8, height: 8, background: lvl.color, boxShadow: `0 0 8px ${lvl.color}88` }}
+            style={{ width: 6, height: 6, background: lvl.color, boxShadow: `0 0 8px ${lvl.color}88` }}
           />
           <span
-            className="text-xs sm:text-sm"
+            className="text-[10px] sm:text-sm"
             style={{ color: C.muted, lineHeight: "1.7" }}
           >
-            {lvl.label} <span style={{ color: "rgba(245,243,255,0.35)" }}>· {lvl.range}</span>
+            {lvl.label} <span className="hidden sm:inline" style={{ color: "rgba(245,243,255,0.35)" }}>· {lvl.range}</span>
           </span>
         </div>
       ))}
@@ -462,7 +494,7 @@ function Skills() {
 
         .sk-wordmark {
           background-image: ${AURORA};
-          background-size: "300% auto";
+          background-size: 300% auto;
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -475,23 +507,39 @@ function Skills() {
                      sk-aurora-shift 4s ease-in-out infinite;
         }
 
+        /* ---- Tabs scrollable container ---- */
+        .sk-tabs-scroll {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .sk-tabs-scroll::-webkit-scrollbar {
+          display: none;
+        }
+
         /* ---- Orb card ---- */
         .sk-orb-card {
           isolation: isolate;
         }
         .sk-orbit-glow {
           position: absolute;
-          top: 18px;
+          top: 12px;
           left: 50%;
           transform: translateX(-50%);
-          width: 110px;
-          height: 110px;
+          width: 80px;
+          height: 80px;
           border-radius: 50%;
           opacity: 0;
           filter: blur(18px);
           transition: opacity 0.5s ease;
           pointer-events: none;
           z-index: -1;
+        }
+        @media (min-width: 640px) {
+          .sk-orbit-glow {
+            top: 18px;
+            width: 110px;
+            height: 110px;
+          }
         }
         .sk-orb-card:hover .sk-orbit-glow,
         .sk-orb-card:focus-visible .sk-orbit-glow {
@@ -500,9 +548,16 @@ function Skills() {
         }
         .sk-orb-card:hover,
         .sk-orb-card:focus-visible {
-          transform: translateY(-8px) !important;
+          transform: translateY(-6px) !important;
           border-color: rgba(167,139,250,0.45) !important;
-          box-shadow: 0 20px 40px -16px rgba(167,139,250,0.3) !important;
+          box-shadow: 0 16px 32px -12px rgba(167,139,250,0.3) !important;
+        }
+        @media (min-width: 640px) {
+          .sk-orb-card:hover,
+          .sk-orb-card:focus-visible {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 20px 40px -16px rgba(167,139,250,0.3) !important;
+          }
         }
 
         .sk-ring-progress {
@@ -537,6 +592,12 @@ function Skills() {
           box-shadow: 0 12px 28px -12px rgba(167,139,250,0.25);
           transform: translateY(-3px);
         }
+        @media (max-width: 639px) {
+          .sk-stat:hover {
+            transform: none;
+            box-shadow: none;
+          }
+        }
       `}</style>
 
       {/* =================== TOP DIVIDER =================== */}
@@ -561,16 +622,16 @@ function Skills() {
       <div ref={spotlightRef} className="sk-spotlight" />
 
       {/* =================== CONTENT =================== */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-24 sm:py-32 lg:py-40">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 py-16 sm:py-24 lg:py-40">
 
         {/* =================== HEADING =================== */}
         <div
-          className="sk-anim text-center mb-16 sm:mb-20"
+          className="sk-anim text-center mb-10 sm:mb-16 lg:mb-20"
           style={sectionInView ? { animation: "sk-fade-up 0.8s cubic-bezier(0.16,1,0.3,1) both" } : { opacity: 0 }}
         >
           {/* Badge */}
           <span
-            className="inline-flex items-center gap-2.5 text-[11px] font-semibold tracking-[0.25em] uppercase mb-6 px-4 py-2 rounded-full"
+            className="inline-flex items-center gap-2 sm:gap-2.5 text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full"
             style={{
               color: C.cyan,
               background: `${C.cyan}0D`,
@@ -578,29 +639,29 @@ function Skills() {
               lineHeight: "1.8",
             }}
           >
-            <FaLaptopCode size={14} />
+            <FaLaptopCode size={12} className="sm:w-[14px] sm:h-[14px]" />
             What I Work With
           </span>
 
           {/* Main Heading */}
           <h2
-            className="sk-font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-4 mb-6"
+            className="sk-font-display text-2xl sm:text-4xl lg:text-5xl font-extrabold mt-3 sm:mt-4 mb-4 sm:mb-6"
             style={{ color: C.text, lineHeight: "1.25" }}
           >
             My <span className="sk-wordmark">Skills</span>
           </h2>
 
           {/* Underline */}
-          <div className="flex justify-center mb-7">
+          <div className="flex justify-center mb-4 sm:mb-7">
             <span
-              className="sk-underline-el block h-[3px] w-20 rounded-full"
+              className="sk-underline-el block h-[3px] w-16 sm:w-20 rounded-full"
               style={{ backgroundImage: AURORA, backgroundSize: "300% auto" }}
             />
           </div>
 
           {/* Description Paragraph */}
           <p
-            className="max-w-2xl mx-auto text-sm sm:text-base mt-3 mb-2"
+            className="max-w-2xl mx-auto text-xs sm:text-base mt-2 sm:mt-3 mb-1 sm:mb-2 px-2"
             style={{ color: C.muted, lineHeight: "1.85" }}
           >
             These are the technologies and tools I use to build modern,
@@ -609,7 +670,7 @@ function Skills() {
         </div>
 
         {/* =================== STATS ROW =================== */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-6 max-w-2xl mx-auto mb-14 sm:mb-18">
+        <div className="grid grid-cols-3 gap-2 sm:gap-6 max-w-2xl mx-auto mb-10 sm:mb-14 lg:mb-18">
           <StatCard
             value={totalSkills}
             suffix="+"
@@ -644,7 +705,7 @@ function Skills() {
 
         {/* =================== CATEGORY TABS =================== */}
         <div
-          className="sk-anim flex justify-center mb-14 sm:mb-18"
+          className="sk-anim flex justify-center mb-10 sm:mb-14 lg:mb-18 px-2 sm:px-0"
           style={sectionInView ? { animation: "sk-fade-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both" } : { opacity: 0 }}
         >
           <CategoryTabs active={activeCategory} setActive={setActiveCategory} />
@@ -653,7 +714,7 @@ function Skills() {
         {/* =================== SKILLS GRID =================== */}
         <div
           ref={gridRef}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5 md:gap-6"
         >
           {filteredSkills.map((skill, index) => (
             <SkillOrb key={`${activeCategory}-${skill.id}`} skill={skill} index={index} start={gridInView} />
