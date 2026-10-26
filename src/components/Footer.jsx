@@ -19,34 +19,41 @@ import {
 } from "react-icons/fi";
 
 /* ═══════════════════════════════════════════════════════════════
-   AURORA PALETTE
+   BLUE THEME  (main blue #3B82F6 + lighter blue tints)
+   NOTE: key names are kept from the old palette so the rest of the
+   file works unchanged:
+     violet  = main blue      (#3B82F6)
+     pink    = light blue     (#60A5FA)
+     cyan    = sky blue       (#38BDF8)
+     amber   = pale blue      (#93C5FD)
+     emerald = periwinkle     (#6C8CFF)
    ═══════════════════════════════════════════════════════════════ */
 const C = {
   bg: "#05060E",
   surface: "#0A0C1A",
   surfaceAlt: "#0E1128",
   border: "#181C38",
-  borderSoft: "rgba(139,92,246,0.08)",
+  borderSoft: "rgba(59,130,246,0.08)",
   text: "#F0EEFF",
   textSec: "#B4B7D6",
   muted: "#6B7199",
-  violet: "#8B5CF6",
-  violetSoft: "rgba(139,92,246,0.1)",
-  pink: "#EC4899",
-  pinkSoft: "rgba(236,72,153,0.1)",
-  cyan: "#06B6D4",
-  cyanSoft: "rgba(6,182,212,0.1)",
-  amber: "#F59E0B",
-  amberSoft: "rgba(245,158,11,0.1)",
-  emerald: "#10B981",
-  emeraldSoft: "rgba(16,185,129,0.1)",
+  violet: "#3B82F6",
+  violetSoft: "rgba(59,130,246,0.1)",
+  pink: "#60A5FA",
+  pinkSoft: "rgba(96,165,250,0.1)",
+  cyan: "#38BDF8",
+  cyanSoft: "rgba(56,189,248,0.1)",
+  amber: "#93C5FD",
+  amberSoft: "rgba(147,197,253,0.1)",
+  emerald: "#6C8CFF",
+  emeraldSoft: "rgba(108,140,255,0.1)",
   red: "#EF4444",
 };
 
 const AURORA = `linear-gradient(90deg,${C.violet},${C.pink},${C.amber},${C.cyan},${C.violet})`;
 
 /* ═══════════════════════════════════════════════════════════════
-   DATA
+   DATA — MERN STACK
    ═══════════════════════════════════════════════════════════════ */
 const quickLinks = [
   { name: "Home", href: "#home", num: "01" },
@@ -61,7 +68,7 @@ const socials = [
   { icon: <FaLinkedin size={18} />, label: "LinkedIn", href: "https://www.linkedin.com/in/muhammad-suleman-a97943378", color: C.violet },
 ];
 
-const techStack = ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Node.js", "Figma", "Git", "Vite", "Redux", "MongoDB", "Firebase"];
+const techStack = ["MongoDB", "Express.js", "React", "Node.js", "JavaScript", "Tailwind CSS", "Redux", "REST APIs", "JWT", "Mongoose", "Postman", "Git", "Vite"];
 const marqueeItems = [...techStack, ...techStack, ...techStack];
 
 const PARTICLES = Array.from({ length: 12 }, (_, i) => ({
@@ -451,7 +458,7 @@ function Footer() {
                   animation: rootIn ? "ft-fade-up 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both" : "none",
                   opacity: rootIn ? undefined : 0,
                 }}>
-                  Frontend Developer passionate about building modern, responsive and user-friendly web applications with React and Tailwind CSS.
+                  MERN Stack Developer passionate about building modern, scalable and user-friendly full-stack web applications with MongoDB, Express.js, React and Node.js.
                 </p>
 
                 <div className="grid grid-cols-3 gap-3" style={{
@@ -528,7 +535,7 @@ function Footer() {
                     <span className="ft-font-mono text-xl font-bold tracking-wider" style={{ color: C.text }}>{time}</span>
                     <span className="w-0.5 h-5 rounded-full" style={{ background: C.violet, animation: "ft-cursor-blink 1s step-end infinite" }} />
                     <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded"
-                      style={{ color: C.emerald, background: C.emeraldSoft, border: `1px solid rgba(16,185,129,0.15)` }}>PKT</span>
+                      style={{ color: C.emerald, background: C.emeraldSoft, border: `1px solid rgba(108,140,255,0.15)` }}>PKT</span>
                   </div>
                 </div>
 

@@ -5,8 +5,9 @@ import {
   Mail,
   Sparkles,
   Code2,
-  Braces,
-  Palette,
+  Database,
+  Server,
+  Hexagon,
   MapPin,
   Zap,
 } from "lucide-react";
@@ -14,25 +15,28 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import profile from "../assets/images/projects/profile.jfif";
 import resume from "../assets/images/projects/resume.pdf"
 
+// ===== BLUE THEME PALETTE =====
+// Keys kept identical so all existing references re-theme automatically.
 const C = {
-  bg: "#070810",
-  bgSoft: "#0C0E1A",
-  border: "#1C2033",
-  borderSoft: "rgba(196, 181, 253, 0.14)",
-  text: "#F5F3FF",
-  muted: "#9CA3C4",
-  violet: "#A78BFA",
-  fuchsia: "#F472B6",
-  amber: "#FBBF66",
-  cyan: "#5EEAD4",
+  bg: "#040816",        // deep navy background
+  bgSoft: "#0A1228",    // dark navy panel
+  border: "#1A2748",    // navy border
+  borderSoft: "rgba(96, 165, 250, 0.14)", // blue-tinted soft border
+  text: "#EFF6FF",      // near-white with blue tint
+  muted: "#8BA5C8",     // soft blue-gray
+  violet: "#3B82F6",    // blue-500  (primary)
+  fuchsia: "#0EA5E9",   // sky-500   (secondary)
+  amber: "#38BDF8",     // sky-400   (accent)
+  cyan: "#22D3EE",      // cyan-400  (highlight)
 };
 
 const AURORA = `linear-gradient(90deg, ${C.violet}, ${C.fuchsia}, ${C.amber}, ${C.cyan}, ${C.violet})`;
 
 const ROLES = [
-  "Frontend Developer",
+  "MERN Stack Developer",
+  "Full Stack Developer",
   "React.js Developer",
-  "UI/UX Enthusiast",
+  "Node.js & Express Developer",
   "Problem Solver",
 ];
 
@@ -229,11 +233,11 @@ function Hero() {
         }
         .hr-btn-primary:hover .hr-shine-el { animation: hr-shine 0.9s ease forwards; }
         .hr-btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -10px ${C.fuchsia}88; }
-        .hr-btn-outline:hover { border-color: ${C.violet} !important; background: rgba(167,139,250,0.08) !important; transform: translateY(-3px); box-shadow: 0 12px 28px -10px rgba(167,139,250,0.2); }
+        .hr-btn-outline:hover { border-color: ${C.violet} !important; background: rgba(59,130,246,0.08) !important; transform: translateY(-3px); box-shadow: 0 12px 28px -10px rgba(59,130,246,0.2); }
         .hr-btn-primary, .hr-btn-outline { transition: transform 0.35s cubic-bezier(0.65,0,0.35,1), box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease; }
 
         .hr-social { transition: transform 0.3s cubic-bezier(0.65,0,0.35,1), color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
-        .hr-social:hover { transform: translateY(-4px); border-color: ${C.violet} !important; color: ${C.text} !important; box-shadow: 0 8px 20px -6px rgba(167,139,250,0.25); }
+        .hr-social:hover { transform: translateY(-4px); border-color: ${C.violet} !important; color: ${C.text} !important; box-shadow: 0 8px 20px -6px rgba(59,130,246,0.25); }
 
         .hr-scroll-dot { animation: hr-bounce 2s ease-in-out infinite; }
 
@@ -341,7 +345,7 @@ function Hero() {
           <div className="hr-text-content text-center lg:text-left order-2 lg:order-1 max-w-2xl mx-auto lg:mx-0">
 
             {/* Availability badge */}
-            <div className="hr-fade-up-1 inline-flex items-center gap-2.5 px-5 py-2 rounded-full mb-8" style={{ border: `1px solid ${C.borderSoft}`, background: "rgba(167,139,250,0.05)" }}>
+            <div className="hr-fade-up-1 inline-flex items-center gap-2.5 px-5 py-2 rounded-full mb-8" style={{ border: `1px solid ${C.borderSoft}`, background: "rgba(59,130,246,0.05)" }}>
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: C.cyan }} />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ background: C.cyan }} />
@@ -378,9 +382,10 @@ function Hero() {
 
             {/* Description */}
             <p className="hr-fade-up-4 mt-7 text-base sm:text-[17px] max-w-xl mx-auto lg:mx-0" style={{ color: C.muted, lineHeight: "1.9" }}>
-              I craft fast, accessible, and visually stunning web experiences
-              with React.js and modern frontend technologies — turning complex
-              ideas into elegant, high-performance products.
+              I build fast, scalable, and visually stunning full-stack web
+              applications with MongoDB, Express.js, React.js and Node.js —
+              turning complex ideas into elegant, high-performance products,
+              from database to user interface.
             </p>
 
             {/* Location */}
@@ -398,7 +403,7 @@ function Hero() {
                 href="#projects"
                 className="hr-btn-primary nb-font-body inline-flex items-center gap-2.5 rounded-xl text-[15px] font-bold w-full sm:w-auto justify-center"
                 style={{
-                  color: "#0A0A14",
+                  color: "#040816",
                   padding: "16px 34px",
                   backgroundImage: `linear-gradient(135deg, ${C.cyan}, ${C.fuchsia}, ${C.amber})`,
                   boxShadow: `0 10px 30px -10px ${C.fuchsia}88`,
@@ -607,9 +612,9 @@ function Hero() {
               >
                 {/* Placeholder while image loads */}
                 {!imgLoaded && (
-                  <div className="absolute inset-0 flex items-center justify-center" style={{ background: `linear-gradient(160deg, ${C.bgSoft}, #0f1225)` }}>
+                  <div className="absolute inset-0 flex items-center justify-center" style={{ background: `linear-gradient(160deg, ${C.bgSoft}, #0f1530)` }}>
                     <div className="text-center">
-                      <div className="w-16 h-16 rounded-full mx-auto mb-3 flex items-center justify-center" style={{ border: `2px solid ${C.border}`, background: "rgba(167,139,250,0.05)" }}>
+                      <div className="w-16 h-16 rounded-full mx-auto mb-3 flex items-center justify-center" style={{ border: `2px solid ${C.border}`, background: "rgba(59,130,246,0.05)" }}>
                         <span className="hr-wordmark nb-font-display text-xl font-bold">MS</span>
                       </div>
                       <p className="text-xs" style={{ color: C.muted, lineHeight: "1.6" }}>Loading photo...</p>
@@ -619,7 +624,7 @@ function Hero() {
 
                 <img
                   src={profile}
-                  alt="Muhammad Suleman — Frontend Developer"
+                  alt="Muhammad Suleman — MERN Stack Developer"
                   className="hr-img-reveal w-full h-full object-cover"
                   style={{ opacity: imgLoaded ? 1 : 0 }}
                   onLoad={() => setImgLoaded(true)}
@@ -636,7 +641,7 @@ function Hero() {
                 />
               </div>
 
-              {/* ===== Floating Tech Badges ===== */}
+              {/* ===== Floating MERN Tech Badges ===== */}
               <div
                 className="hr-badge-1 absolute flex items-center gap-2 px-3.5 py-2.5 rounded-2xl z-10"
                 style={{
@@ -647,8 +652,8 @@ function Hero() {
                   boxShadow: "0 12px 32px -10px rgba(0,0,0,0.6)",
                 }}
               >
-                <Code2 size={18} style={{ color: C.cyan }} />
-                <span className="text-xs font-semibold" style={{ color: C.text, lineHeight: "1.4" }}>React.js</span>
+                <Database size={18} style={{ color: C.cyan }} />
+                <span className="text-xs font-semibold" style={{ color: C.text, lineHeight: "1.4" }}>MongoDB</span>
               </div>
 
               <div
@@ -661,8 +666,8 @@ function Hero() {
                   boxShadow: "0 12px 32px -10px rgba(0,0,0,0.6)",
                 }}
               >
-                <Braces size={18} style={{ color: C.fuchsia }} />
-                <span className="text-xs font-semibold" style={{ color: C.text, lineHeight: "1.4" }}>JavaScript</span>
+                <Server size={18} style={{ color: C.fuchsia }} />
+                <span className="text-xs font-semibold" style={{ color: C.text, lineHeight: "1.4" }}>Express.js</span>
               </div>
 
               <div
@@ -675,8 +680,8 @@ function Hero() {
                   boxShadow: "0 12px 32px -10px rgba(0,0,0,0.6)",
                 }}
               >
-                <Palette size={18} style={{ color: C.amber }} />
-                <span className="text-xs font-semibold" style={{ color: C.text, lineHeight: "1.4" }}>Tailwind</span>
+                <Code2 size={18} style={{ color: C.amber }} />
+                <span className="text-xs font-semibold" style={{ color: C.text, lineHeight: "1.4" }}>React.js</span>
               </div>
 
               <div
@@ -689,8 +694,8 @@ function Hero() {
                   boxShadow: "0 12px 32px -10px rgba(0,0,0,0.6)",
                 }}
               >
-                <Zap size={18} style={{ color: C.violet }} />
-                <span className="text-xs font-semibold" style={{ color: C.text, lineHeight: "1.4" }}>CSS</span>
+                <Hexagon size={18} style={{ color: C.violet }} />
+                <span className="text-xs font-semibold" style={{ color: C.text, lineHeight: "1.4" }}>Node.js</span>
               </div>
 
               {/* Decorative particles */}

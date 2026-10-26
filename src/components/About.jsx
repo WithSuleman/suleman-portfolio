@@ -4,26 +4,26 @@ import { HiOutlineDownload } from "react-icons/hi";
 import resume from "../assets/images/projects/resume.pdf"
 
 /* ═══════════════════════════════════════════════════════════════
-   REFINED AURORA PALETTE — Maximum contrast on deep dark
+   REFINED BLUE PALETTE — Matches the Hero blue theme
    ═══════════════════════════════════════════════════════════════ */
 const C = {
-  bg: "#05060E",
-  surface: "#0A0C1A",
-  surfaceAlt: "#0E1128",
-  border: "#181C38",
-  borderSoft: "rgba(139, 92, 246, 0.08)",
-  text: "#F0EEFF",
-  textSec: "#B4B7D6",
-  muted: "#6B7199",
-  violet: "#8B5CF6",
-  violetSoft: "rgba(139, 92, 246, 0.1)",
-  pink: "#EC4899",
-  pinkSoft: "rgba(236, 72, 153, 0.1)",
-  cyan: "#06B6D4",
+  bg: "#040816",        // deep navy (matches Hero bg)
+  surface: "#0A1228",   // dark navy panel
+  surfaceAlt: "#0E1530",
+  border: "#1A2748",    // navy border
+  borderSoft: "rgba(96, 165, 250, 0.08)", // blue-tinted soft border
+  text: "#EFF6FF",      // near-white with blue tint
+  textSec: "#A8BDD9",   // soft blue-gray
+  muted: "#6E84A8",     // dimmer blue-gray
+  violet: "#3B82F6",    // blue-500 (primary — used everywhere violet was)
+  violetSoft: "rgba(59, 130, 246, 0.1)",
+  pink: "#0EA5E9",      // sky-500 (secondary — replaces pink)
+  pinkSoft: "rgba(14, 165, 233, 0.1)",
+  cyan: "#06B6D4",      // cyan-500 (kept — sits naturally in blue family)
   cyanSoft: "rgba(6, 182, 212, 0.1)",
-  amber: "#F59E0B",
-  emerald: "#10B981",
-  emeraldSoft: "rgba(16, 185, 129, 0.1)",
+  amber: "#38BDF8",     // sky-400 (accent — replaces amber)
+  emerald: "#22D3EE",  // cyan-400 (cool tone — for "Available" badge, replaces green)
+  emeraldSoft: "rgba(34, 211, 238, 0.1)",
 };
 
 const AURORA = `linear-gradient(90deg, ${C.violet}, ${C.pink}, ${C.amber}, ${C.cyan}, ${C.violet})`;
@@ -33,7 +33,7 @@ const AURORA = `linear-gradient(90deg, ${C.violet}, ${C.pink}, ${C.amber}, ${C.c
    ═══════════════════════════════════════════════════════════════ */
 const aboutCards = [
   { icon: <FaUserGraduate size={22} />, title: "Education", desc: "ADP Computer Science (Continue)", color: C.violet, soft: C.violetSoft },
-  { icon: <FaLaptopCode size={22} />, title: "Experience", desc: "Frontend Developer Projects", color: C.pink, soft: C.pinkSoft },
+  { icon: <FaLaptopCode size={22} />, title: "Experience", desc: "MERN Stack Projects", color: C.pink, soft: C.pinkSoft },
   { icon: <FaLocationDot size={22} />, title: "Location", desc: "Faisalabad, Pakistan", color: C.cyan, soft: C.cyanSoft },
 ];
 
@@ -46,15 +46,16 @@ const stats = [
 
 const skills = [
   { name: "React.js", pct: 70, color: C.cyan },
-  { name: "Tailwind CSS", pct: 60, color: C.violet },
+  { name: "Node.js", pct: 60, color: C.emerald },
+  { name: "Express.js", pct: 60, color: C.pink },
+  { name: "MongoDB", pct: 60, color: C.amber },
   { name: "JavaScript", pct: 82, color: C.amber },
   { name: "Tailwind CSS", pct: 60, color: C.violet },
-  { name: "Html", pct: 70, color: C.emerald },
 ];
 
-const focusTags = ["React.js", "Tailwind CSS", "Next.js", "TypeScript", "Node.js", "Git", "Figma", "VS Code"];
+const focusTags = ["MongoDB", "Express.js", "React.js", "Node.js", "JavaScript", "Tailwind CSS", "REST APIs", "JWT Auth", "Git", "Postman", "VS Code"];
 
-const rotatingWords = ["Frontend Developer", "Creative Coder", "UI Enthusiast", "React Specialist"];
+const rotatingWords = ["MERN Stack Developer", "Full Stack Developer", "Creative Coder", "React & Node Specialist"];
 
 /* ═══════════════════════════════════════════════════════════════
    PARTICLES (generated once, outside render cycle)
@@ -292,8 +293,8 @@ function About() {
           75%{transform:translate(22px,-14px);opacity:calc(var(--po)*0.6)}
         }
         @keyframes ab-badge-glow{
-          0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.25)}
-          50%{box-shadow:0 0 0 8px rgba(16,185,129,0)}
+          0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,0.25)}
+          50%{box-shadow:0 0 0 8px rgba(34,211,238,0)}
         }
 
         @media(prefers-reduced-motion:reduce){
@@ -363,8 +364,8 @@ function About() {
           transition:transform .5s cubic-bezier(.03,.98,.52,.99),border-color .4s ease,box-shadow .4s ease,background .4s ease;
         }
         .ab-card:hover{
-          border-color:rgba(139,92,246,.35);
-          box-shadow:0 24px 48px -18px rgba(139,92,246,.22);
+          border-color:rgba(59,130,246,.35);
+          box-shadow:0 24px 48px -18px rgba(59,130,246,.22);
           background:${C.surfaceAlt};
         }
         .ab-card::before{
@@ -387,11 +388,11 @@ function About() {
 
         /* ── Stat hover ── */
         .ab-stat-item{transition:transform .3s ease;border-radius:12px}
-        .ab-stat-item:hover{transform:translateY(-3px);background:rgba(139,92,246,.04)}
+        .ab-stat-item:hover{transform:translateY(-3px);background:rgba(59,130,246,.04)}
 
         /* ── Stats box ── */
         .ab-stats-box{transition:border-color .4s ease,box-shadow .4s ease}
-        .ab-stats-box:hover{border-color:rgba(139,92,246,.18);box-shadow:0 8px 32px -12px rgba(139,92,246,.08)}
+        .ab-stats-box:hover{border-color:rgba(59,130,246,.18);box-shadow:0 8px 32px -12px rgba(59,130,246,.08)}
 
         /* ── Badge ── */
         .ab-badge{transition:transform .3s ease,box-shadow .3s ease;animation:ab-badge-glow 3s ease-in-out infinite}
@@ -399,12 +400,12 @@ function About() {
 
         /* ── Skills card ── */
         .ab-skills-card{transition:border-color .4s ease,box-shadow .4s ease,background .4s ease}
-        .ab-skills-card:hover{border-color:rgba(139,92,246,.2);box-shadow:0 12px 36px -14px rgba(139,92,246,.12);background:${C.surfaceAlt}}
+        .ab-skills-card:hover{border-color:rgba(59,130,246,.2);box-shadow:0 12px 36px -14px rgba(59,130,246,.12);background:${C.surfaceAlt}}
 
         /* ── Orbit ── */
         .ab-orbit-ring{border-radius:50%;position:absolute;border:1px dashed}
-        .ab-orbit-1{animation:ab-orbit 25s linear infinite;border-color:rgba(139,92,246,.12)}
-        .ab-orbit-2{animation:ab-orbit 18s linear infinite reverse;border-color:rgba(236,72,153,.1)}
+        .ab-orbit-1{animation:ab-orbit 25s linear infinite;border-color:rgba(59,130,246,.12)}
+        .ab-orbit-2{animation:ab-orbit 18s linear infinite reverse;border-color:rgba(14,165,233,.1)}
         .ab-orbit-3{animation:ab-orbit 12s linear infinite;border-color:rgba(6,182,212,.08)}
         .ab-orbit-dot{position:absolute;border-radius:50%;top:-3px;left:50%;margin-left:-3px;width:6px;height:6px}
 
@@ -491,7 +492,7 @@ function About() {
             style={{
               color: C.emerald,
               background: C.emeraldSoft,
-              border: `1px solid rgba(16,185,129,0.2)`,
+              border: `1px solid rgba(34,211,238,0.2)`,
             }}
           >
             <span
@@ -526,8 +527,9 @@ function About() {
             className="max-w-2xl mx-auto text-base lg:text-lg leading-relaxed"
             style={{ color: C.muted }}
           >
-            Passionate Frontend Developer focused on building modern, responsive
-            and user-friendly web applications using React, JavaScript &amp; Tailwind CSS.
+            Passionate MERN Stack Developer focused on building modern, scalable
+            and user-friendly full-stack web applications using MongoDB,
+            Express.js, React &amp; Node.js.
           </p>
         </div>
 
@@ -557,13 +559,15 @@ function About() {
               <strong className="font-semibold" style={{ color: C.text }}>
                 Muhammad Suleman
               </strong>
-              , a passionate Frontend Developer who enjoys creating clean, modern
-              and responsive websites with React and Tailwind CSS.
+              , a passionate MERN Stack Developer who enjoys building complete
+              web applications — from responsive React interfaces to secure
+              Node.js &amp; Express APIs backed by MongoDB.
             </p>
             <p className="text-[15px] lg:text-[17px] leading-[1.85] mb-10" style={{ color: C.muted }}>
-              I continuously improve my skills by building real-world projects and
-              learning the latest frontend technologies. My goal is to create fast,
-              accessible and visually appealing user interfaces that make a real difference.
+              I continuously improve my skills by building real-world full-stack
+              projects and learning the latest web technologies. My goal is to
+              create fast, scalable and visually appealing applications that make
+              a real difference.
             </p>
 
             {/* Stats */}
@@ -618,7 +622,7 @@ function About() {
   download="Muhammad-Suleman-CV.pdf"
   className="ab-cv-btn ab-font-body inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-semibold text-sm tracking-wide transition-all duration-300 hover:scale-105"
   style={{
-    color: "#05060E",
+    color: "#040816",
     backgroundImage: `linear-gradient(135deg, ${C.cyan}, ${C.violet}, ${C.pink})`,
     boxShadow: `0 14px 36px -14px ${C.violet}55`,
     textDecoration: "none",

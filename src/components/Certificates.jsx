@@ -5,29 +5,36 @@ import certificateImage2 from "../assets/images/certificates/javascript.png";
 import certificateImage3 from "../assets/images/certificates/internship-frontend-developer.png";
 
 /* ═══════════════════════════════════════════════════════════════
-   AURORA PALETTE
+   BLUE THEME  (main blue #3B82F6 + lighter blue tints)
+   NOTE: key names are kept from the old palette so the rest of the
+   file works unchanged:
+     violet  = main blue      (#3B82F6)
+     pink    = light blue     (#60A5FA)
+     cyan    = sky blue       (#38BDF8)
+     amber   = pale blue      (#93C5FD)
+     emerald = periwinkle     (#6C8CFF)
    ═══════════════════════════════════════════════════════════════ */
 const C = {
   bg: "#05060E",
   surface: "#0A0C1A",
   surfaceAlt: "#0E1128",
   border: "#181C38",
-  borderSoft: "rgba(139,92,246,0.08)",
+  borderSoft: "rgba(59,130,246,0.08)",
   text: "#F0EEFF",
   textSec: "#B4B7D6",
   muted: "#6B7199",
-  violet: "#8B5CF6",
-  violetSoft: "rgba(139,92,246,0.1)",
-  pink: "#EC4899",
-  pinkSoft: "rgba(236,72,153,0.1)",
-  cyan: "#06B6D4",
-  cyanSoft: "rgba(6,182,212,0.1)",
-  amber: "#F59E0B",
-  amberSoft: "rgba(245,158,11,0.1)",
-  emerald: "#10B981",
-  emeraldSoft: "rgba(16,185,129,0.1)",
-  rose: "#F43F5E",
-  roseSoft: "rgba(244,63,94,0.1)",
+  violet: "#3B82F6",
+  violetSoft: "rgba(59,130,246,0.1)",
+  pink: "#60A5FA",
+  pinkSoft: "rgba(96,165,250,0.1)",
+  cyan: "#38BDF8",
+  cyanSoft: "rgba(56,189,248,0.1)",
+  amber: "#93C5FD",
+  amberSoft: "rgba(147,197,253,0.1)",
+  emerald: "#6C8CFF",
+  emeraldSoft: "rgba(108,140,255,0.1)",
+  rose: "#3B82F6",
+  roseSoft: "rgba(59,130,246,0.1)",
 };
 
 const AURORA = `linear-gradient(90deg,${C.violet},${C.pink},${C.amber},${C.cyan},${C.violet})`;
@@ -520,7 +527,7 @@ function CertCard({ cert, index, visible, isReversed, onOpenLightbox }) {
               style={{
                 color: C.amber,
                 background: C.amberSoft,
-                border: `1px solid rgba(245,158,11,0.15)`,
+                border: `1px solid rgba(147,197,253,0.15)`,
               }}
             >
               <FaClock size={10} />
@@ -531,7 +538,7 @@ function CertCard({ cert, index, visible, isReversed, onOpenLightbox }) {
               style={{
                 color: C.emerald,
                 background: C.emeraldSoft,
-                border: `1px solid rgba(16,185,129,0.15)`,
+                border: `1px solid rgba(108,140,255,0.15)`,
               }}
             >
               <FaStar size={10} />
@@ -729,7 +736,7 @@ function Certificates() {
         .cr-grid{
           background-image:
             radial-gradient(circle,${C.borderSoft} 1px,transparent 1px),
-            linear-gradient(rgba(139,92,246,0.02) 1px,transparent 1px);
+            linear-gradient(rgba(59,130,246,0.02) 1px,transparent 1px);
           background-size:40px 40px,40px 40px;
           -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black 10%,transparent 75%);
           mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black 10%,transparent 75%);
@@ -781,10 +788,10 @@ function Certificates() {
           transition:border-color 0.5s ease,box-shadow 0.5s ease,background 0.5s ease;
         }
         .cr-card:hover{
-          border-color:rgba(139,92,246,.25);
+          border-color:rgba(59,130,246,.25);
           box-shadow:
-            0 30px 70px -20px rgba(139,92,246,.18),
-            0 0 0 1px rgba(139,92,246,.1),
+            0 30px 70px -20px rgba(59,130,246,.18),
+            0 0 0 1px rgba(59,130,246,.1),
             inset 0 1px 0 rgba(255,255,255,.03);
           background:${C.surfaceAlt};
         }
@@ -854,9 +861,9 @@ function Certificates() {
         .cr-tag:hover::before{transform:translateX(100%)}
         .cr-tag:hover{
           transform:translateY(-3px) scale(1.06);
-          border-color:rgba(139,92,246,.35);
-          box-shadow:0 8px 20px -8px rgba(139,92,246,.25);
-          background:rgba(139,92,246,.15);
+          border-color:rgba(59,130,246,.35);
+          box-shadow:0 8px 20px -8px rgba(59,130,246,.25);
+          background:rgba(59,130,246,.15);
           color:#fff;
         }
 
@@ -889,8 +896,8 @@ function Certificates() {
         }
         .cr-stat-card:hover{
           transform:translateY(-4px) scale(1.02);
-          border-color:rgba(139,92,246,.2);
-          box-shadow:0 20px 40px -15px rgba(139,92,246,.15);
+          border-color:rgba(59,130,246,.2);
+          box-shadow:0 20px 40px -15px rgba(59,130,246,.15);
           background:${C.surfaceAlt};
         }
 
@@ -1029,9 +1036,9 @@ function Certificates() {
               className="cr-badge-float inline-flex items-center gap-2.5 text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase px-5 py-2.5 rounded-full"
               style={{
                 color: C.amber,
-                background: `linear-gradient(135deg, ${C.amberSoft}, rgba(245,158,11,0.04))`,
-                border: `1px solid rgba(245,158,11,0.2)`,
-                boxShadow: `0 0 30px rgba(245,158,11,0.06)`,
+                background: `linear-gradient(135deg, ${C.amberSoft}, rgba(147,197,253,0.04))`,
+                border: `1px solid rgba(147,197,253,0.2)`,
+                boxShadow: `0 0 30px rgba(147,197,253,0.06)`,
               }}
             >
               <FaAward size={12} />

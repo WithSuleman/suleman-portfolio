@@ -3,23 +3,26 @@ import ProjectCard from "./ProjectCard";
 import projects from "../data/projects";
 
 /* ═══════════════════════════════════════════════════════════════
-   AURORA PALETTE — identical to About & Services
+   BLUE THEME  (main blue #3B82F6 + lighter blue tints)
+   NOTE: key names are kept from the old palette so the rest of the
+   file works unchanged:  violet = main blue, pink = light blue,
+   amber = pale blue, cyan = sky blue.
    ═══════════════════════════════════════════════════════════════ */
 const C = {
   bg: "#05060E",
   surface: "#0A0C1A",
   border: "#181C38",
-  borderSoft: "rgba(139,92,246,0.08)",
+  borderSoft: "rgba(59,130,246,0.08)",
   text: "#F0EEFF",
   muted: "#6B7199",
-  violet: "#8B5CF6",
-  violetSoft: "rgba(139,92,246,0.1)",
-  pink: "#EC4899",
-  pinkSoft: "rgba(236,72,153,0.1)",
-  cyan: "#06B6D4",
-  cyanSoft: "rgba(6,182,212,0.1)",
-  amber: "#F59E0B",
-  emerald: "#10B981",
+  violet: "#3B82F6",
+  violetSoft: "rgba(59,130,246,0.1)",
+  pink: "#60A5FA",
+  pinkSoft: "rgba(96,165,250,0.1)",
+  cyan: "#38BDF8",
+  cyanSoft: "rgba(56,189,248,0.1)",
+  amber: "#93C5FD",
+  emerald: "#3B82F6",
 };
 
 const AURORA = `linear-gradient(90deg,${C.violet},${C.pink},${C.amber},${C.cyan},${C.violet})`;
@@ -260,7 +263,7 @@ function Projects() {
             style={{
               color: C.pink,
               background: C.pinkSoft,
-              border: `1px solid rgba(236,72,153,0.18)`,
+              border: `1px solid rgba(96,165,250,0.18)`,
             }}
           >
             <svg
@@ -276,7 +279,7 @@ function Projects() {
               <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
               <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
             </svg>
-            Portfolio
+            MERN Stack Portfolio
           </span>
 
           <h2
@@ -301,8 +304,8 @@ function Projects() {
             className="max-w-2xl mx-auto text-base lg:text-lg leading-relaxed"
             style={{ color: C.muted }}
           >
-            Here are some of my recent projects that showcase my frontend
-            development skills using React, JavaScript and Tailwind CSS.
+            Here are some of my recent full-stack MERN projects and frontend
+            work, built with MongoDB, Express.js, React and Node.js.
           </p>
         </div>
 
@@ -393,7 +396,7 @@ function Projects() {
           }
         >
           <a
-            href="https://github.com/yourusername"
+            href="https://github.com/WithSuleman"
             target="_blank"
             rel="noreferrer"
             className="pj-cta-btn pj-font-display inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-sm font-semibold tracking-wide"

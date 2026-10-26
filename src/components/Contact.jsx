@@ -11,27 +11,35 @@ import {
 } from "react-icons/fi";
 
 /* ═══════════════════════════════════════════════════════════════
-   AURORA PALETTE — identical across the entire portfolio
+   BLUE THEME  (main blue #3B82F6 + lighter blue tints)
+   NOTE: key names are kept from the old palette so the rest of the
+   file works unchanged:
+     violet  = main blue      (#3B82F6)
+     pink    = light blue     (#60A5FA)
+     cyan    = sky blue       (#38BDF8)
+     amber   = pale blue      (#93C5FD)
+     emerald = periwinkle     (#6C8CFF)
+     red     = error colour   (kept red on purpose)
    ═══════════════════════════════════════════════════════════════ */
 const C = {
   bg: "#05060E",
   surface: "#0A0C1A",
   surfaceAlt: "#0E1128",
   border: "#181C38",
-  borderSoft: "rgba(139,92,246,0.08)",
+  borderSoft: "rgba(59,130,246,0.08)",
   text: "#F0EEFF",
   textSec: "#B4B7D6",
   muted: "#6B7199",
-  violet: "#8B5CF6",
-  violetSoft: "rgba(139,92,246,0.1)",
-  pink: "#EC4899",
-  pinkSoft: "rgba(236,72,153,0.1)",
-  cyan: "#06B6D4",
-  cyanSoft: "rgba(6,182,212,0.1)",
-  amber: "#F59E0B",
-  amberSoft: "rgba(245,158,11,0.1)",
-  emerald: "#10B981",
-  emeraldSoft: "rgba(16,185,129,0.1)",
+  violet: "#3B82F6",
+  violetSoft: "rgba(59,130,246,0.1)",
+  pink: "#60A5FA",
+  pinkSoft: "rgba(96,165,250,0.1)",
+  cyan: "#38BDF8",
+  cyanSoft: "rgba(56,189,248,0.1)",
+  amber: "#93C5FD",
+  amberSoft: "rgba(147,197,253,0.1)",
+  emerald: "#6C8CFF",
+  emeraldSoft: "rgba(108,140,255,0.1)",
   red: "#EF4444",
 };
 
@@ -388,8 +396,8 @@ function Contact() {
           transition:border-color .4s ease,box-shadow .4s ease,background .4s ease;
         }
         .ct-info-card:hover{
-          border-color:rgba(139,92,246,.3);
-          box-shadow:0 20px 44px -16px rgba(139,92,246,.14);
+          border-color:rgba(59,130,246,.3);
+          box-shadow:0 20px 44px -16px rgba(59,130,246,.14);
           background:${C.surfaceAlt};
         }
         .ct-info-card:hover .ct-arrow-icon{
@@ -421,8 +429,8 @@ function Contact() {
           transition:border-color .4s ease,box-shadow .4s ease;
         }
         .ct-form-card:hover{
-          border-color:rgba(139,92,246,.18);
-          box-shadow:0 12px 36px -14px rgba(139,92,246,.1);
+          border-color:rgba(59,130,246,.18);
+          box-shadow:0 12px 36px -14px rgba(59,130,246,.1);
         }
 
         /* ── Send button ── */
@@ -475,8 +483,8 @@ function Contact() {
           transition:border-color .4s ease,box-shadow .4s ease;
         }
         .ct-map:hover{
-          border-color:rgba(139,92,246,.15);
-          box-shadow:0 8px 24px -12px rgba(139,92,246,.08);
+          border-color:rgba(59,130,246,.15);
+          box-shadow:0 8px 24px -12px rgba(59,130,246,.08);
         }
       `}</style>
 
@@ -550,7 +558,7 @@ function Contact() {
             style={{
               color: C.emerald,
               background: C.emeraldSoft,
-              border: `1px solid rgba(16,185,129,0.18)`,
+              border: `1px solid rgba(108,140,255,0.18)`,
             }}
           >
             <span
@@ -772,7 +780,7 @@ function Contact() {
                       formStatus === "sent"
                         ? `linear-gradient(135deg, ${C.emerald}, ${C.cyan})`
                         : formStatus === "error"
-                        ? `linear-gradient(135deg, ${C.red}, ${C.pink})`
+                        ? `linear-gradient(135deg, ${C.red}, #F87171)`
                         : `linear-gradient(135deg, ${C.violet}, ${C.pink}, ${C.amber})`,
                     boxShadow: `0 14px 36px -14px ${C.violet}44`,
                   }}

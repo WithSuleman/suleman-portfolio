@@ -2,52 +2,55 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { FaBriefcase, FaGraduationCap, FaLaptopCode } from "react-icons/fa";
 
 /* ═══════════════════════════════════════════════════════════════
-   AURORA PALETTE — identical across all portfolio sections
+   BLUE THEME  (main blue #3B82F6 + lighter blue tints)
+   NOTE: key names are kept from the old palette so the rest of the
+   file works unchanged:  violet = main blue, pink = light blue,
+   amber = pale blue, cyan = sky blue.
    ═══════════════════════════════════════════════════════════════ */
 const C = {
   bg: "#05060E",
   surface: "#0A0C1A",
   surfaceAlt: "#0E1128",
   border: "#181C38",
-  borderSoft: "rgba(139,92,246,0.08)",
+  borderSoft: "rgba(59,130,246,0.08)",
   text: "#F0EEFF",
   textSec: "#B4B7D6",
   muted: "#6B7199",
-  violet: "#8B5CF6",
-  violetSoft: "rgba(139,92,246,0.1)",
-  pink: "#EC4899",
-  pinkSoft: "rgba(236,72,153,0.1)",
-  cyan: "#06B6D4",
-  cyanSoft: "rgba(6,182,212,0.1)",
-  amber: "#F59E0B",
-  amberSoft: "rgba(245,158,11,0.1)",
+  violet: "#3B82F6",
+  violetSoft: "rgba(59,130,246,0.1)",
+  pink: "#60A5FA",
+  pinkSoft: "rgba(96,165,250,0.1)",
+  cyan: "#38BDF8",
+  cyanSoft: "rgba(56,189,248,0.1)",
+  amber: "#93C5FD",
+  amberSoft: "rgba(147,197,253,0.1)",
 };
 
 const AURORA = `linear-gradient(90deg,${C.violet},${C.pink},${C.amber},${C.cyan},${C.violet})`;
 
 /* ═══════════════════════════════════════════════════════════════
-   DATA — each item gets its own accent colour
+   DATA — MERN STACK (each item gets its own accent colour)
    ═══════════════════════════════════════════════════════════════ */
 const timeline = [
   {
     id: 1,
     icon: <FaBriefcase size={20} />,
-    title: "Frontend Development Internship",
+    title: "MERN Stack Development Internship",
     company: "Teyzix Core",
     duration: "2026",
     description:
-      "Worked on modern React.js and Tailwind CSS projects. Built responsive user interfaces, reusable components and real-world portfolio projects with a focus on clean code practices.",
+      "Worked on modern React.js, Node.js and Tailwind CSS projects. Built responsive user interfaces, reusable components and real-world full-stack projects with a focus on clean code practices.",
     color: C.cyan,
     soft: C.cyanSoft,
   },
   {
     id: 2,
     icon: <FaLaptopCode size={20} />,
-    title: "Frontend Projects",
+    title: "MERN Stack Projects",
     company: "Personal Projects",
     duration: "2025 — Present",
     description:
-      "Developed multiple frontend applications including SaaS Landing Page, Expense Tracker, Analytics Dashboard and Portfolio Website using React, JavaScript and Tailwind CSS.",
+      "Developed full-stack applications including Expense Tracker, Task Manager and a Flower E-Commerce Website, along with SaaS Landing Page, Analytics Dashboard and Portfolio Website, using MongoDB, Express.js, React and Node.js.",
     color: C.violet,
     soft: C.violetSoft,
   },
@@ -58,7 +61,7 @@ const timeline = [
     company: "Continue",
     duration: "2024 — Present",
     description:
-      "Learning software development, programming fundamentals and modern frontend technologies while building practical, real-world projects to solidify concepts.",
+      "Learning software development, programming fundamentals and the MERN stack (MongoDB, Express.js, React, Node.js) while building practical, real-world projects to solidify concepts.",
     color: C.pink,
     soft: C.pinkSoft,
   },
@@ -359,8 +362,8 @@ function Experience() {
           transition:border-color .4s ease,box-shadow .4s ease,background .4s ease,border-left-color .4s ease;
         }
         .ex-card:hover{
-          border-color:rgba(139,92,246,.3)!important;
-          box-shadow:0 24px 52px -18px rgba(139,92,246,.16);
+          border-color:rgba(59,130,246,.3)!important;
+          box-shadow:0 24px 52px -18px rgba(59,130,246,.16);
           background:${C.surfaceAlt};
         }
 
@@ -469,7 +472,7 @@ function Experience() {
               style={{
                 color: C.amber,
                 background: C.amberSoft,
-                border: `1px solid rgba(245,158,11,0.18)`,
+                border: `1px solid rgba(147,197,253,0.18)`,
               }}
             >
               <svg
@@ -509,8 +512,8 @@ function Experience() {
               className="max-w-2xl mx-auto text-base lg:text-lg leading-relaxed"
               style={{ color: C.muted }}
             >
-              My learning journey, internship experience and frontend
-              development projects that shaped my skills.
+              My learning journey, internship experience and MERN stack
+              projects that shaped my skills.
             </p>
           </div>
 

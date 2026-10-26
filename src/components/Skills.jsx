@@ -6,6 +6,12 @@ import {
   SiHtml5,
   SiCss,
   SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiMongoose,
+  SiRedux,
+  SiJsonwebtokens,
+  SiPostman,
   SiGit,
   SiGithub,
   SiNpm,
@@ -16,44 +22,72 @@ import {
 import { FaLaptopCode, FaLayerGroup, FaGaugeHigh, FaBoltLightning } from "react-icons/fa6";
 
 /* =====================================================================
-   COLOR SYSTEM
+   COLOR SYSTEM — BLUE THEME (matches Hero + About)
 ===================================================================== */
 const C = {
-  bg: "#070810",
-  panel: "#0C0E1A",
-  panelSoft: "#10121F",
-  border: "#1C2033",
-  borderSoft: "rgba(196, 181, 253, 0.14)",
-  text: "#F5F3FF",
-  muted: "#9CA3C4",
-  violet: "#A78BFA",
-  fuchsia: "#F472B6",
-  amber: "#FBBF66",
-  cyan: "#5EEAD4",
+  bg: "#040816",        // deep navy (matches Hero bg)
+  panel: "#0A1228",    // dark navy panel
+  panelSoft: "#0E1530",
+  border: "#1A2748",   // navy border
+  borderSoft: "rgba(96, 165, 250, 0.14)", // blue-tinted soft border
+  text: "#EFF6FF",     // near-white with blue tint
+  muted: "#8BA5C8",    // soft blue-gray
+  violet: "#3B82F6",   // blue-500 (primary — used everywhere violet was)
+  fuchsia: "#0EA5E9",  // sky-500 (secondary — replaces fuchsia)
+  amber: "#38BDF8",    // sky-400 (accent — replaces amber)
+  cyan: "#22D3EE",     // cyan-400 (highlight)
 };
 
 const AURORA = `linear-gradient(90deg, ${C.violet}, ${C.fuchsia}, ${C.amber}, ${C.cyan}, ${C.violet})`;
-const ACCENTS = [C.violet, C.fuchsia, C.amber, C.cyan];
 
 /* =====================================================================
-   SKILLS DATA
+   SKILL LEVEL COLOURS
+   One colour per proficiency level. The progress ring on every skill
+   card AND the legend use these, so they always match.
+   To change the ring colours, edit only the `color` values below.
+===================================================================== */
+const LEVELS = [
+  { label: "Learning",    range: "< 70%",   min: 0,  color: "#FFFFFF" }, // white
+  { label: "Comfortable", range: "70–84%",  min: 70, color: "#FFFFFF" }, // white
+  { label: "Proficient",  range: "85–94%",  min: 85, color: "#FFFFFF" }, // white
+  { label: "Expert",      range: "95%+",    min: 95, color: "#FFFFFF" }, // white
+];
+
+const getLevelColor = (level) =>
+  [...LEVELS].reverse().find((l) => level >= l.min).color;
+
+/* =====================================================================
+   SKILLS DATA — MERN STACK
 ===================================================================== */
 const skillsData = [
+  // ---- MERN core ----
   { id: 1, name: "React.js", level: 92, category: "Frontend", icon: SiReact },
+  { id: 12, name: "Node.js", level: 82, category: "Backend", icon: SiNodedotjs },
+  { id: 13, name: "Express.js", level: 80, category: "Backend", icon: SiExpress },
+  { id: 14, name: "MongoDB", level: 80, category: "Database", icon: SiMongodb },
+  { id: 15, name: "Mongoose", level: 76, category: "Database", icon: SiMongoose },
+
+  // ---- Frontend ----
   { id: 2, name: "JavaScript (ES6+)", level: 90, category: "Frontend", icon: SiJavascript },
   { id: 5, name: "Tailwind CSS", level: 95, category: "Frontend", icon: SiTailwindcss },
   { id: 6, name: "HTML5", level: 96, category: "Frontend", icon: SiHtml5 },
   { id: 7, name: "CSS", level: 92, category: "Frontend", icon: SiCss },
   { id: 9, name: "Bootstrap", level: 82, category: "Frontend", icon: SiBootstrap },
-  { id: 12, name: "Node.js", level: 82, category: "Backend", icon: SiNodedotjs },
-  { id: 18, name: "Git", level: 90, category: "Tools & Design", icon: SiGit },
-  { id: 19, name: "GitHub", level: 88, category: "Tools & Design", icon: SiGithub },
-  { id: 22, name: "npm", level: 88, category: "Tools & Design", icon: SiNpm },
-  { id: 23, name: "Vite", level: 75, category: "Tools & Design", icon: SiVite },
-  { id: 25, name: "Vercel", level: 84, category: "Tools & Design", icon: SiVercel },
+  { id: 10, name: "Redux Toolkit", level: 72, category: "Frontend", icon: SiRedux },
+
+  // ---- Backend extras ----
+  { id: 16, name: "JWT Auth", level: 74, category: "Backend", icon: SiJsonwebtokens },
+
+  // ---- Tools ----
+  { id: 17, name: "Postman", level: 85, category: "Tools", icon: SiPostman },
+  { id: 18, name: "Git", level: 90, category: "Tools", icon: SiGit },
+  { id: 19, name: "GitHub", level: 88, category: "Tools", icon: SiGithub },
+  { id: 22, name: "npm", level: 88, category: "Tools", icon: SiNpm },
+  { id: 23, name: "Vite", level: 75, category: "Tools", icon: SiVite },
+  { id: 25, name: "Vercel", level: 84, category: "Tools", icon: SiVercel },
 ];
 
-const CATEGORIES = ["All", "Frontend", "Backend", "Tools & Design"];
+const CATEGORIES = ["All", "Frontend", "Backend", "Database", "Tools"];
 
 /* =====================================================================
    HOOK — useInView
@@ -195,7 +229,7 @@ function CategoryTabs({ active, setActive }) {
             aria-selected={active === cat}
             className="sk-tab-btn relative z-10 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors duration-300"
             style={{
-              color: active === cat ? "#0A0A14" : C.muted,
+              color: active === cat ? "#040816" : C.muted,
               lineHeight: "1.6",
               minHeight: "36px",
               display: "flex",
@@ -264,7 +298,8 @@ function SkillOrb({ skill, index, start }) {
   const [filled, setFilled] = useState(false);
   const cardRef = useRef(null);
   const Icon = skill.icon;
-  const accent = ACCENTS[index % ACCENTS.length];
+  // Ring / icon / % colour now follows the skill's proficiency level
+  const accent = getLevelColor(skill.level);
 
   useEffect(() => {
     if (!start) return;
@@ -367,19 +402,12 @@ function SkillOrb({ skill, index, start }) {
    COMPONENT — ProficiencyLegend (FIXED FOR MOBILE)
 ===================================================================== */
 function ProficiencyLegend({ start }) {
-  const levels = [
-    { label: "Learning", range: "< 70%", color: C.muted },
-    { label: "Comfortable", range: "70–84%", color: C.cyan },
-    { label: "Proficient", range: "85–94%", color: C.violet },
-    { label: "Expert", range: "95%+", color: C.amber },
-  ];
-
   return (
     <div
       className="sk-anim flex flex-wrap justify-center items-center gap-x-3 sm:gap-x-7 gap-y-2 sm:gap-y-3 mb-10 sm:mb-14 md:mb-16 px-3 sm:px-4"
       style={start ? { animation: "sk-fade-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s both" } : { opacity: 0 }}
     >
-      {levels.map((lvl) => (
+      {LEVELS.map((lvl) => (
         <div key={lvl.label} className="flex items-center gap-1.5 sm:gap-2.5">
           <span
             className="inline-block rounded-full shrink-0"
@@ -389,7 +417,7 @@ function ProficiencyLegend({ start }) {
             className="text-[10px] sm:text-sm"
             style={{ color: C.muted, lineHeight: "1.7" }}
           >
-            {lvl.label} <span className="hidden sm:inline" style={{ color: "rgba(245,243,255,0.35)" }}>· {lvl.range}</span>
+            {lvl.label} <span className="hidden sm:inline" style={{ color: "rgba(239,246,255,0.35)" }}>· {lvl.range}</span>
           </span>
         </div>
       ))}
@@ -486,7 +514,7 @@ function Skills() {
           pointer-events: none;
           background: radial-gradient(
             600px circle at var(--sk-spot-x, 50%) var(--sk-spot-y, 50%),
-            rgba(167,139,250,0.07),
+            rgba(59,130,250,0.07),
             transparent 40%
           );
           z-index: 1;
@@ -549,14 +577,14 @@ function Skills() {
         .sk-orb-card:hover,
         .sk-orb-card:focus-visible {
           transform: translateY(-6px) !important;
-          border-color: rgba(167,139,250,0.45) !important;
-          box-shadow: 0 16px 32px -12px rgba(167,139,250,0.3) !important;
+          border-color: rgba(59,130,250,0.45) !important;
+          box-shadow: 0 16px 32px -12px rgba(59,130,250,0.3) !important;
         }
         @media (min-width: 640px) {
           .sk-orb-card:hover,
           .sk-orb-card:focus-visible {
             transform: translateY(-8px) !important;
-            box-shadow: 0 20px 40px -16px rgba(167,139,250,0.3) !important;
+            box-shadow: 0 20px 40px -16px rgba(59,130,250,0.3) !important;
           }
         }
 
@@ -588,8 +616,8 @@ function Skills() {
           transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
         }
         .sk-stat:hover {
-          border-color: rgba(167,139,250,0.3) !important;
-          box-shadow: 0 12px 28px -12px rgba(167,139,250,0.25);
+          border-color: rgba(59,130,250,0.3) !important;
+          box-shadow: 0 12px 28px -12px rgba(59,130,250,0.25);
           transform: translateY(-3px);
         }
         @media (max-width: 639px) {
@@ -640,7 +668,7 @@ function Skills() {
             }}
           >
             <FaLaptopCode size={12} className="sm:w-[14px] sm:h-[14px]" />
-            What I Work With
+            MERN Stack Toolkit
           </span>
 
           {/* Main Heading */}
@@ -664,8 +692,9 @@ function Skills() {
             className="max-w-2xl mx-auto text-xs sm:text-base mt-2 sm:mt-3 mb-1 sm:mb-2 px-2"
             style={{ color: C.muted, lineHeight: "1.85" }}
           >
-            These are the technologies and tools I use to build modern,
-            responsive and high-quality web applications.
+            The MongoDB, Express.js, React.js and Node.js stack, along with the
+            tools I use to build modern, scalable and high-quality full-stack
+            web applications — from database to user interface.
           </p>
         </div>
 

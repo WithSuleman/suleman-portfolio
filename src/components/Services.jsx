@@ -1,72 +1,72 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { FaCode, FaLaptopCode, FaMobileAlt } from "react-icons/fa";
+import { FaCode, FaServer, FaDatabase } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 
 /* ═══════════════════════════════════════════════════════════════
-   AURORA PALETTE — Cohesive with About section
+   BLUE PALETTE — Matches Hero / About / Skills
    ═══════════════════════════════════════════════════════════════ */
 const C = {
-  bg: "#05060E",
-  surface: "#0A0C1A",
-  surfaceAlt: "#0E1128",
-  border: "#181C38",
-  borderSoft: "rgba(139, 92, 246, 0.08)",
-  text: "#F0EEFF",
-  textSec: "#B4B7D6",
-  muted: "#6B7199",
-  violet: "#8B5CF6",
-  violetSoft: "rgba(139, 92, 246, 0.1)",
-  pink: "#EC4899",
-  pinkSoft: "rgba(236, 72, 153, 0.1)",
-  cyan: "#06B6D4",
+  bg: "#040816",        // deep navy (matches Hero bg)
+  surface: "#0A1228",   // dark navy panel
+  surfaceAlt: "#0E1530",
+  border: "#1A2748",    // navy border
+  borderSoft: "rgba(96, 165, 250, 0.08)", // blue-tinted soft border
+  text: "#EFF6FF",      // near-white with blue tint
+  textSec: "#A8BDD9",   // soft blue-gray
+  muted: "#6E84A8",     // dimmer blue-gray
+  violet: "#3B82F6",    // blue-500 (primary — replaces violet)
+  violetSoft: "rgba(59, 130, 246, 0.1)",
+  pink: "#0EA5E9",      // sky-500 (secondary — replaces pink)
+  pinkSoft: "rgba(14, 165, 233, 0.1)",
+  cyan: "#06B6D4",      // cyan-500 (kept — natural blue family)
   cyanSoft: "rgba(6, 182, 212, 0.1)",
-  amber: "#F59E0B",
-  amberSoft: "rgba(245, 158, 11, 0.1)",
+  amber: "#38BDF8",     // sky-400 (accent — replaces amber)
+  amberSoft: "rgba(56, 189, 248, 0.1)",
 };
 
 const AURORA = `linear-gradient(90deg, ${C.violet}, ${C.pink}, ${C.amber}, ${C.cyan}, ${C.violet})`;
 
 /* ═══════════════════════════════════════════════════════════════
-   DATA
+   DATA — MERN STACK
    ═══════════════════════════════════════════════════════════════ */
 const services = [
   {
     id: 1,
     icon: <FaCode size={28} />,
-    title: "Frontend Development",
+    title: "Full Stack MERN Development",
     description:
-      "Building modern, responsive and high-performance websites using React, JavaScript and Tailwind CSS with clean and maintainable code.",
+      "Building complete, scalable web applications end to end using MongoDB, Express.js, React and Node.js with clean and maintainable code.",
     color: C.violet,
     soft: C.violetSoft,
-    tag: "React · JS · Tailwind",
+    tag: "MongoDB · Express · React · Node",
   },
   {
     id: 2,
-    icon: <FaLaptopCode size={28} />,
-    title: "UI / UX Implementation",
+    icon: <FaServer size={28} />,
+    title: "Backend & REST API Development",
     description:
-      "Converting Figma, Adobe XD or design mockups into pixel-perfect, responsive and interactive user interfaces.",
+      "Designing secure and fast REST APIs with Node.js and Express, including authentication, validation and error handling for your applications.",
     color: C.pink,
     soft: C.pinkSoft,
-    tag: "Figma · Adobe XD · Pixel-Perfect",
+    tag: "Node.js · Express · JWT",
   },
   {
     id: 3,
-    icon: <FaMobileAlt size={28} />,
-    title: "Responsive Web Design",
+    icon: <FaDatabase size={28} />,
+    title: "Database Design & Integration",
     description:
-      "Creating websites that work smoothly across desktops, tablets and mobile devices with an excellent user experience.",
+      "Structuring efficient MongoDB schemas with Mongoose and connecting them smoothly to your frontend and backend for reliable data flow.",
     color: C.cyan,
     soft: C.cyanSoft,
-    tag: "Mobile-First · Cross-Platform",
+    tag: "MongoDB · Mongoose · Atlas",
   },
 ];
 
 const processSteps = [
   { num: "01", title: "Discovery", desc: "Understand your goals & requirements" },
-  { num: "02", title: "Design", desc: "Plan layout, flow & components" },
-  { num: "03", title: "Develop", desc: "Write clean, performant code" },
-  { num: "04", title: "Deliver", desc: "Test, refine & launch" },
+  { num: "02", title: "Design", desc: "Plan UI, API routes & database schema" },
+  { num: "03", title: "Develop", desc: "Build React UI, Node APIs & MongoDB" },
+  { num: "04", title: "Deliver", desc: "Test, deploy & launch" },
 ];
 
 /* Floating particles — generated once */
@@ -326,8 +326,8 @@ function Services() {
           transition:border-color .4s ease,box-shadow .4s ease,background .4s ease;
         }
         .sv-card:hover{
-          border-color:rgba(139,92,246,.3);
-          box-shadow:0 28px 56px -20px rgba(139,92,246,.18);
+          border-color:rgba(59,130,246,.3);
+          box-shadow:0 28px 56px -20px rgba(59,130,246,.18);
           background:${C.surfaceAlt};
         }
 
@@ -364,7 +364,7 @@ function Services() {
         }
         .sv-step:hover{
           transform:translateY(-4px);
-          border-color:rgba(139,92,246,.25);
+          border-color:rgba(59,130,246,.25);
           background:${C.surfaceAlt};
         }
         .sv-step-dot{
@@ -482,7 +482,7 @@ function Services() {
             style={{
               color: C.violet,
               background: C.violetSoft,
-              border: `1px solid rgba(139,92,246,0.18)`,
+              border: `1px solid rgba(59,130,246,0.18)`,
             }}
           >
             <svg
@@ -522,8 +522,9 @@ function Services() {
             className="max-w-2xl mx-auto text-base lg:text-lg leading-relaxed"
             style={{ color: C.muted }}
           >
-            I provide modern frontend development services focused on responsive
-            design, clean code and user-friendly interfaces that leave a lasting impression.
+            I provide full-stack MERN development services focused on scalable
+            architecture, clean code and user-friendly applications — from
+            database to user interface.
           </p>
         </div>
 
@@ -678,7 +679,7 @@ function Services() {
                 href="#contact"
                 className="sv-cta-btn sv-font-body inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-sm tracking-wide"
                 style={{
-                  color: "#05060E",
+                  color: "#040816",
                   backgroundImage: `linear-gradient(135deg, ${C.violet}, ${C.pink}, ${C.amber})`,
                   boxShadow: `0 14px 36px -14px ${C.violet}55`,
                 }}
